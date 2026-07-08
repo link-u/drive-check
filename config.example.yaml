@@ -1,0 +1,104 @@
+# config.example.yaml を config.yaml にコピーして編集してください
+# TeamSpirit から CSV を input/ に配置して実行します
+
+input:
+  directory: input
+  attendance_file: report1783401008096.csv
+  overtime_file: overtime.csv
+  employee_mapping_file: report1783402017703.csv
+  encoding: utf-8-sig
+  column_mapping:
+    attendance:
+      employee_code: 社員コード
+      employee_name: 社員名
+      email: []
+      date: 日付
+      start_time: 出社時刻(HH:MM)
+      end_time: 退社時刻(HH:MM)
+    overtime:
+      email:
+        - メール
+        - Email
+        - メールアドレス
+      start_date:
+        - 開始日
+        - 申請日
+        - StartDate
+      end_date:
+        - 終了日
+        - EndDate
+      start_time:
+        - 開始時刻
+        - StartTime
+      end_time:
+        - 終了時刻
+        - EndTime
+      apply_type:
+        - 申請種類
+        - ApplyType
+      status:
+        - ステータス
+        - 状態
+        - Status
+  overtime_filters:
+    approved_statuses:
+      - 承認済み
+      - 確定済み
+      - Approved
+    apply_types:
+      - 残業申請
+      - 早朝勤務申請
+      - 休日出勤申請
+
+google:
+  # 環境変数: GOOGLE_APPLICATION_CREDENTIALS, GOOGLE_ADMIN_EMAIL
+  application_names: all
+
+matching:
+  timezone: Asia/Tokyo
+  grace_minutes_before: 15
+  grace_minutes_after: 15
+  session_gap_minutes: 30
+  missing_attendance_policy: skip
+  exclude_events:
+    detail_substrings:
+      - script_id=
+      - api_method=
+      - originating_app_id=
+    application_events:
+      - application_name: gmail
+        event_name: delivery
+      - application_name: token
+        event_name: authorize
+      - application_name: drive
+        event_name: access_url
+      - application_name: mobile
+        event_name: DEVICE_SYNC_EVENT
+      - application_name: mobile
+        event_name: OS_UPDATED_EVENT
+    doc_title_substrings: []
+  detect_automated_edits:
+    enabled: true
+    min_edits_per_day: 20
+    min_distinct_hours: 8
+    max_median_gap_minutes: 15
+    min_automated_days: 3
+    min_avg_events_per_day: 3
+    min_recurring_hours: 3
+    recurring_hour_day_ratio: 0.5
+    max_burst_median_gap_minutes: 60
+    min_paired_days: 5
+    min_paired_avg_per_day: 2
+    max_paired_median_gap_minutes: 1.0
+    min_fixed_schedule_days: 10
+    min_fixed_schedule_avg_per_day: 1.0
+    fixed_hour_day_ratio: 0.7
+    min_sparse_active_days: 10
+    min_sparse_avg_per_day: 1.0
+    max_sparse_avg_per_day: 4.0
+    min_sparse_distinct_hours: 4
+    sparse_max_dominant_hour_day_ratio: 0.6
+
+output:
+  directory: output
+  csv_prefix: overtime_check

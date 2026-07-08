@@ -1,0 +1,15 @@
+config.yaml
+credentials/
+*.json
+.env
+.salesforce_pkce
+.DS_Store
+input/*.csv
+!input/*.csv.example
+employees.csv
+output/
+cache/
+__pycache__/
+*.pyc
+.venv/
+venv/
