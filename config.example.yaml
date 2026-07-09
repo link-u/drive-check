@@ -72,6 +72,8 @@ matching:
         event_name: authorize
       - application_name: drive
         event_name: access_url
+      - application_name: drive
+        event_name: sync_item_content
       - application_name: mobile
         event_name: DEVICE_SYNC_EVENT
       - application_name: mobile

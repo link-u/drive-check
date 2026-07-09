@@ -247,6 +247,7 @@ python main.py --start-date 2026-06-01 --end-date 2026-06-30 \
 | `detail` に `api_method=` を含む | Sheets / Drive API 経由の操作 |
 | `detail` に `originating_app_id=` を含む | アドオン・連携アプリ経由の操作 |
 | `drive` / `access_url` | 外部 URL へのアクセス（GAS の UrlFetch 等） |
+| `drive` / `sync_item_content` | Drive のオフライン同期（本人の能動操作ではない） |
 | `gmail` / `delivery` | 受信メールの自動配信ログ |
 | `token` / `authorize` | アプリ認証（ESET 等） |
 | `mobile` / `DEVICE_SYNC_EVENT` 等 | 端末の自動同期 |
@@ -326,6 +327,7 @@ Admin SDK Reports API（`activities.list`）から、指定期間・指定ユー
 | `detail` に `api_method=` | `drive/access_item_content` + Sheets API | API 経由の読み取り |
 | `detail` に `originating_app_id=` | スプレッドシートアドオン経由 | 連携アプリ経由 |
 | `drive` + `access_url` | 外部 URL アクセス | UrlFetch 等 |
+| `drive` + `sync_item_content` | Drive オフライン同期 | 自動同期 |
 | `gmail` + `delivery` | 受信メール | 受動的ログ |
 | `token` + `authorize` | ESET 等の認可 | アプリ認証 |
 | `mobile` + `DEVICE_SYNC_EVENT` 等 | 端末同期 | 本人操作ではない |
@@ -441,6 +443,8 @@ matching:
         event_name: authorize
       - application_name: drive
         event_name: access_url
+      - application_name: drive
+        event_name: sync_item_content
       - application_name: mobile
         event_name: DEVICE_SYNC_EVENT
     doc_title_substrings: []  # 任意: 自動検出で拾えないシート名
